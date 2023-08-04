@@ -3,7 +3,7 @@
     --dark: #282724;
     --accent: #208a8a;
     --light: #fff;
-    --light2: #a9c8e3;
+    --light2: #3c434b;
     --acc2-25: #025f5f;
     --shadow: #181818;
     --shadow2: #90908d;  }
@@ -21,7 +21,8 @@
     color:var(--light);
     padding: 10px;
     margin-bottom: 5px;
-    border-bottom: solid 5px var(--acc2-25) ;
+    border-bottom: solid 5px var(--acc2-25);
+    box-shadow: var(--shadow) 5px 5px 10px;
   }
 
   .col-style2 {
@@ -30,7 +31,7 @@
     padding: 10px;
     border-radius: 12px;
     margin: 15px;
-    box-shadow: var(--shadow2) 5px 5px 10px;
+    box-shadow: var(--shadow) 5px 5px 10px;
     display: flex;
     justify-content: center;
   }
