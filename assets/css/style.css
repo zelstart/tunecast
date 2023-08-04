@@ -46,7 +46,9 @@
   }
 
   h1 {
-    font: weight 700px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4em;
+    padding-top: 10px;
   }
 
   h2 {
