@@ -3,19 +3,18 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="height=device-height,width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
     <!--Fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
-        
-    <!--Foundation CSS & JavaScript Framework-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.5/dist/css/foundation.min.css"
-        crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.5/dist/js/foundation.min.js"
-        crossorigin="anonymous"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap"
+        rel="stylesheet">
+
+    <!--Bulma CSS Framework-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.css">
 
     <!--Other CSS Stylesheets-->
     <link rel="stylesheet" href="assets/css/style.css" />
@@ -31,26 +30,33 @@
 </head>
 
 <body>
-    <div class="grid-x">
-        <div class="cell col-style">
-            <h1 class="center-text">Weather Music App</h1>
-            <h2 class="center-text">Search your city here...</h2>
-            <div class="input-width">
-                <form>
-                    <input type="text" placeholder="boston">
-                </form>
+    <header class="hero">
+        <div class="columns is-centered mb-3 p-2 col-style1">
+            <div class="column is-12 col-style">
+                <h1 class="has-text-centered">Weather Music App</h1>
+                <h2 class="has-text-centered">Search your city here...</h2>
+                <div class="columns is-centered">
+                    <div class="column is-2">
+                        <div class="field">
+                            <div class="control">
+                                <input class="input is-rounded" type="text" placeholder="boston">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </header>
 
-    <div class="grid-container">
-        <div class="grid-x">
-            <div class="cell large-12 col-style2">
-                <img src="http://via.placeholder.com/700x500">
-            </div>
+<!-- needed to add a section to minimize the whitespace that won't go away -->
+<section class="section"> 
+    <div class="columns is-centered col-style2 p-4">
+        <div class="column is-6">
+            <img src="http://via.placeholder.com/700x400">
         </div>
     </div>
-    </div>
-
+</section>
 
 </body>
+
+</html>
