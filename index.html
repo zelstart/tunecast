@@ -14,14 +14,21 @@
         rel="stylesheet">
 
     <!--Bulma CSS Framework-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 
     <!--Other CSS Stylesheets-->
     <link rel="stylesheet" href="assets/css/style.css" />
 
+    <!--Font Awesome Icons-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
     <!--jQuery Script-->
     <script src="https://code.jquery.com/jquery-3.7.0.js"
         integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+
+    <!-- Bulma JavaScript -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/js/bulma.min.js"></script>
+
 
     <!--Other Scripts-->
     <script src="assets/js/script.js"></script>
@@ -48,14 +55,59 @@
         </div>
     </header>
 
-<!-- needed to add a section to minimize the whitespace that won't go away -->
-<section class="section"> 
-    <div class="columns is-centered col-style2 p-4">
-        <div class="column is-6">
-            <img src="http://via.placeholder.com/700x400">
+    <!-- needed to add a section to minimize the whitespace that won't go away -->
+    <section class="section">
+        <div class="columns is-centered col-style2 p-4">
+            <div class="column is-6">
+                <img src="http://via.placeholder.com/700x400">
+            </div>
+            <div class="column is-3 m-5">
+                <div class="card my-card mb-2">
+                    <div class="card-header">
+                        <p class="card-header-title">Lorem Ipsum</p>
+                    </div>
+                    <div class="card-content mb-5">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+                    </div>
+                </div>
+                <div class="columns is-justify-content-space-between mx-2">
+
+                    <button class="my-btn button">Prev</button>
+
+                    <div class="dropdown">
+                        <div class="dropdown-trigger">
+                            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                                <span>Dropdown button</span>
+                                <span class="icon is-small">
+                                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                </span>
+                            </button>
+                        </div>
+                        <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                            <div class="dropdown-content">
+                                <a href="#" class="dropdown-item">
+                                    Dropdown item
+                                </a>
+                                <a class="dropdown-item">
+                                    Other dropdown item
+                                </a>
+                                <a href="#" class="dropdown-item is-active">
+                                    Active dropdown item
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    Other dropdown item
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="my-btn button">Next</button>
+
+                </div>
+
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
 </body>
 

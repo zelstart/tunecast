@@ -38,6 +38,7 @@
 
   .col-style2 img {
     align-self: center;
+    border: solid 4px var(--bg);
   }
 
   h1 {
@@ -51,6 +52,19 @@
     font-size: 1.4em;
   }
 
+  .my-card {
+    background-color: var(--light);
+    box-shadow: var(--shadow) 5px 5px 10px;
+    border-radius: 4px;
+  }
 
+  .my-btn {
+    font-family: 'Bebas Neue', sans-serif;
+    margin-right: 2px;
+  }
 
-
+  .button:hover {
+    background-color: var(--accent);
+    color: var(--light);
+    border: 0px;
+  }
