@@ -32,7 +32,7 @@
 
     <!--Other Scripts-->
     <script src="assets/js/script.js"></script>
-    
+
 
     <title>Weather Music App</title>
 </head>
@@ -44,7 +44,7 @@
                 <h1 class="has-text-centered is-size-2-mobile">Weather Music App</h1>
                 <h2 class="has-text-centered is-size-5-mobile">Search your city here...</h2>
                 <div class="columns is-centered">
-                    <div class="column is-4"> 
+                    <div class="column is-4">
                         <div class="field has-addons">
                             <div class="control is-expanded">
                                 <input id="location-input" class="input is-rounded" type="text" placeholder="boston">
@@ -66,7 +66,7 @@
                 <img src="http://via.placeholder.com/700x400">
             </div>
             <div class="column is-3 m-5">
-                <div class="my-btn-group">
+                <div class="my-btn-group" >
                     <button id="prev" class="my-btn button">Prev</button>
                     <button id="next" class="my-btn button">Next</button>
                 </div>
@@ -78,30 +78,35 @@
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
                     </div>
                 </div>
-                <div class="dropdown-container">
-                    <div class="dropdown">
-                        <div class="dropdown-trigger">
-                            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
-                                <span>I want to hear something...</span>
-                                <span class="icon is-small">
-                                    <i class="fas fa-angle-down" aria-hidden="true"></i>
-                                </span>
-                            </button>
-                        </div>
-                        <div class="dropdown-menu" id="dropdown-menu" role="menu">
-                            <div class="dropdown-content">
-                                <a class="dropdown-item">
-                                    Happy and upbeat
-                                </a>
-                                <a class="dropdown-item">
-                                    Slow and melancholic
-                                </a>
-                                <a class="dropdown-item">
-                                    Energizing and fast-paced
-                                </a>
-                                <a class="dropdown-item">
-                                    Gentle and relaxing
-                                </a>
+                <div class="columns is-centered">
+                    <div class="dropdown-container">
+                        <div class="dropdown" id="choice-dropdown">
+                            <div class="dropdown-trigger">
+                                <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                                    <span>I want to hear something...</span>
+                                    <span class="icon is-small">
+                                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                                <div class="dropdown-content">
+                                    <a class="dropdown-item">
+                                        Happy and upbeat
+                                    </a>
+                                    <a class="dropdown-item">
+                                        Slow and melancholic
+                                    </a>
+                                    <a class="dropdown-item">
+                                        Energizing and fast-paced
+                                    </a>
+                                    <a class="dropdown-item">
+                                        Gentle and relaxing
+                                    </a>
+                                    <a class="dropdown-item">
+                                        Anything - surprise me!
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -109,7 +114,7 @@
             </div>
         </div>
     </section>
-    
+
 
 </body>
 
