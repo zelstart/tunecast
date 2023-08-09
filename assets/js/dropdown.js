@@ -3,7 +3,7 @@ $(document).ready(function () {
     $('#choice-dropdown').click(function () {
         let screenWidth = window.innerWidth;
         $('#choice-dropdown').toggleClass("is-active");
-        if (screenWidth < 600) {
+        if (screenWidth < 600) { // if viewing on mobile screens, will make the dropdown menu go up
             $('#choice-dropdown').addClass("is-up")
         }
     });
@@ -14,3 +14,4 @@ $(document).ready(function () {
         console.log(searchTerms);
     });
 })
+
