@@ -66,7 +66,6 @@ html {
 
   .my-btn {
     font-family: 'Bebas Neue', sans-serif;
-    margin-right: 2px;
   }
 
   .button:hover {
@@ -77,4 +76,35 @@ html {
 
 .rounded-right {
   border-radius: 9999px;
+  margin: 0px 3px;
 }
+
+
+.my-btn-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.my-btn-group button {
+  flex: 1;
+  margin: 2px 0px 5px 0;
+}
+
+#prev {
+  margin-right: 3px;
+}
+
+.dropdown-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+
+#location-input {
+  margin: 0px 3px;
+}
+
+

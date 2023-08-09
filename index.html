@@ -26,12 +26,10 @@
     <script src="https://code.jquery.com/jquery-3.7.0.js"
         integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
 
-    <!-- Bulma JavaScript -->
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/js/bulma.min.js"></script>
-
-
     <!--Other Scripts-->
     <script src="assets/js/script.js"></script>
+    <script src="assets/js/dropdown.js"></script>
+
 
     <title>Weather Music App</title>
 </head>
@@ -40,10 +38,10 @@
     <header class="hero">
         <div class="columns is-centered mb-3 p-2 col-style1">
             <div class="column is-12 col-style">
-                <h1 class="has-text-centered">Weather Music App</h1>
-                <h2 class="has-text-centered">Search your city here...</h2>
+                <h1 class="has-text-centered is-size-2-mobile">Weather Music App</h1>
+                <h2 class="has-text-centered is-size-5-mobile">Search your city here...</h2>
                 <div class="columns is-centered">
-                    <div class="column is-4"> <!-- Adjust the width as needed -->
+                    <div class="column is-4">
                         <div class="field has-addons">
                             <div class="control is-expanded">
                                 <input id="location-input" class="input is-rounded" type="text" placeholder="boston">
@@ -59,59 +57,61 @@
         </div>
     </header>
 
-    <!-- needed to add a section to minimize the whitespace that won't go away -->
     <section class="section">
         <div class="columns is-centered col-style2 p-4">
             <div class="column is-6">
                 <img src="http://via.placeholder.com/700x400">
             </div>
             <div class="column is-3 m-5">
+                <div class="my-btn-group" >
+                    <button id="prev" class="my-btn button">Prev</button>
+                    <button id="next" class="my-btn button">Next</button>
+                </div>
                 <div class="card my-card mb-2">
                     <div class="card-header">
                         <p class="card-header-title">Lorem Ipsum</p>
                     </div>
-                    <div class="card-content mb-5">
+                    <div class="card-content">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
                     </div>
                 </div>
-                <div class="columns is-justify-content-space-between mx-2">
-
-                    <button class="my-btn button">Prev</button>
-
-                    <div class="dropdown">
-                        <div class="dropdown-trigger">
-                            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
-                                <span>Dropdown button</span>
-                                <span class="icon is-small">
-                                    <i class="fas fa-angle-down" aria-hidden="true"></i>
-                                </span>
-                            </button>
-                        </div>
-                        <div class="dropdown-menu" id="dropdown-menu" role="menu">
-                            <div class="dropdown-content">
-                                <a href="#" class="dropdown-item">
-                                    Dropdown item
-                                </a>
-                                <a class="dropdown-item">
-                                    Other dropdown item
-                                </a>
-                                <a href="#" class="dropdown-item is-active">
-                                    Active dropdown item
-                                </a>
-                                <a href="#" class="dropdown-item">
-                                    Other dropdown item
-                                </a>
+                <div class="columns is-centered">
+                    <div class="dropdown-container">
+                        <div class="dropdown" id="choice-dropdown">
+                            <div class="dropdown-trigger">
+                                <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                                    <span>I want to hear something...</span>
+                                    <span class="icon is-small">
+                                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                                <div class="dropdown-content">
+                                    <a class="dropdown-item">
+                                        Happy and upbeat
+                                    </a>
+                                    <a class="dropdown-item">
+                                        Slow and melancholic
+                                    </a>
+                                    <a class="dropdown-item">
+                                        Energizing and fast-paced
+                                    </a>
+                                    <a class="dropdown-item">
+                                        Gentle and relaxing
+                                    </a>
+                                    <a class="dropdown-item">
+                                        Anything - surprise me!
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-                    <button class="my-btn button">Next</button>
-
                 </div>
-
             </div>
         </div>
     </section>
+
 
 </body>
 
