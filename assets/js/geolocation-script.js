@@ -1,32 +1,48 @@
 
 // Code snippet taken from https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API/Using_the_Geolocation_API
 
-function geoFindMe() {
-    const status = document.querySelector("#status");
-    const mapLink = document.querySelector("#map-link");
-  
-    mapLink.href = "";
-    mapLink.textContent = "";
-  
+const geoLocateButton = document.querySelector("#geo-locate-button");
+
+function getLatAndLong() {
+  //Returns a promise that resolves with object containing lat and long values
+  return new Promise((resolve, reject) => {
     function success(position) {
       const latitude = position.coords.latitude;
       const longitude = position.coords.longitude;
-  
-      status.textContent = "";
-      mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
-      mapLink.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} °`;
+      resolve({ latitude, longitude }); 
     }
-  
+
     function error() {
-      status.textContent = "Unable to retrieve your location";
+      reject("Unable to retrieve your location");
     }
-  
+
     if (!navigator.geolocation) {
-      status.textContent = "Geolocation is not supported by your browser";
+      reject("Geolocation is not supported by your browser");
     } else {
-      status.textContent = "Locating…";
       navigator.geolocation.getCurrentPosition(success, error);
     }
+  });
+}
+
+/*
+function getWeather() {
+    const temp = 80; // Fahrenheit
+    const weatherDesc = "rainy";
+    const windSpeed = 18; // mph
+    
+    return { temp, weatherDesc, windSpeed };
+}*/
+
+
+geoLocateButton.addEventListener("click", async () => {
+  try {
+    const coordinates = await getLatAndLong(); // Needed to await result of promise
+    console.log("Latitude:", coordinates.latitude, "Longitude:", coordinates.longitude); // Delete
+    // const weatherData = getWeatherByLatAndLong(coordinates.latitude, coordinates.longitude);
+    // const searchTerm = getSearchTerm(weatherData.temp, weatherData.weatherDesc, weatherData.windSpeed);
+    // const videoId = searchVideo(searchTerm);
+    // embedVideo(videoId);
+  } catch (error) {
+    console.error(error);
   }
-  
-  document.querySelector("#find-me").addEventListener("click", geoFindMe);
+});
