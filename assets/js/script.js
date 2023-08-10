@@ -16,7 +16,7 @@ $(document).ready(function () {
         })
         .then((data)=> {
           let weatherDisplay = document.getElementById('weather-display');
-          weatherDisplay.removeClass("hidden")
+          $("#weather-display").removeClass("hidden");
           weatherDisplay.innerHTML = `
           <p>City: ${data.name}</p>
           <p>Temperature: ${data.main.temp}</p>
@@ -33,6 +33,14 @@ $(document).ready(function () {
         getWeatherData(locationInput)
       }
     })
+
+    $('#location-input').on('keydown', function (event) {
+        if (event.keyCode === 13) {
+            $('#getWeatherBtn').click();
+        }
+    })
+
+
 
 
 })

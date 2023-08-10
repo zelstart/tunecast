@@ -88,12 +88,10 @@ html {
   margin: 0px 3px;
 }
 
-
 .my-btn-group {
   display: flex;
   justify-content: space-between;
 }
-
 
 .my-btn-group button {
   flex: 1;
@@ -111,11 +109,9 @@ html {
   margin-top: 20px;
 }
 
-
 #location-input {
   margin: 0px 3px;
 }
-
 
 .hidden {
   display: none;
