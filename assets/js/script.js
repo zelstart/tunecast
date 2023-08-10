@@ -34,5 +34,13 @@ $(document).ready(function () {
       }
     })
 
+    $('#location-input').on('keydown', function (event) {
+        if (event.keyCode === 13) {
+            $('#getWeatherBtn').click();
+        }
+    })
+
+
+
 
 })
