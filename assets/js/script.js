@@ -1,10 +1,15 @@
 $(document).ready(function () {
 
-    function getWeatherData(city) {
-      let apiKey = 'fc83ec8cd64eb691a5994da1280e5c60';
-      let weatherUrl = 'https://api.openweathermap.org/data/2.5/weather?q=';
-      let apiWeatherUrl = `${weatherUrl}${city}&appid=${apiKey}&units=imperial`;
-      
+    function getWeatherData(city, state) {
+        let apiKey = 'fc83ec8cd64eb691a5994da1280e5c60';
+        let weatherUrl = 'https://api.openweathermap.org/data/2.5/weather?q=';
+        let apiWeatherUrl = `${weatherUrl}${city}`;
+  
+        if (state) {
+          apiWeatherUrl += `,${state},US`;
+        }
+  
+        apiWeatherUrl += `&appid=${apiKey}&units=imperial`;
 
       fetch(apiWeatherUrl)
         .then((response) => {
@@ -38,10 +43,21 @@ $(document).ready(function () {
       let errorMessage = document.getElementById('error-message');
       if (locationInput.trim() !== ''){
         getWeatherData(locationInput)
-    }else {
-      errorMessage.textContent = 'Please enter a valid location';
-      errorMessage.parentElement.classList.remove('hidden');
-    }
+      }else {
+        errorMessage.textContent = 'Please enter a valid location';
+        errorMessage.parentElement.classList.remove('hidden');
+      }
+        let locationInputSplit = $('#location-input').val().toLowerCase().split(",");
+        let city = locationInputSplit[0];
+        console.log(locationInputSplit) // check to see if it logs
+        if (city.trim() !== ''){
+          getWeatherData(city)
+        } 
+        if (locationInputSplit[1]) {
+          let state = locationInputSplit[1].trim();
+          getWeatherData(city, state)
+        } 
+     
   });
 
     $('#location-input').on('keydown', function (event) {
