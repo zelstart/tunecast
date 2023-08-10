@@ -39,6 +39,14 @@ $(document).ready(function () {
         });
     }
     $('#getWeatherBtn').click(function (){
+      let locationInput = $('#location-input').val();
+      let errorMessage = document.getElementById('error-message');
+      if (locationInput.trim() !== ''){
+        getWeatherData(locationInput)
+      }else {
+        errorMessage.textContent = 'Please enter a valid location';
+        errorMessage.parentElement.classList.remove('hidden');
+      }
         let locationInputSplit = $('#location-input').val().toLowerCase().split(",");
         let city = locationInputSplit[0];
         console.log(locationInputSplit) // check to see if it logs
@@ -48,10 +56,8 @@ $(document).ready(function () {
         if (locationInputSplit[1]) {
           let state = locationInputSplit[1].trim();
           getWeatherData(city, state)
-        } else {
-      errorMessage.textContent = 'Please enter a valid location';
-      errorMessage.parentElement.classList.remove('hidden');
-    }
+        } 
+     
   });
 
     $('#location-input').on('keydown', function (event) {

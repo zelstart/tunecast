@@ -113,6 +113,13 @@ html {
   margin: 0px 3px;
 }
 
+#error-message {
+  color:red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+
 .hidden {
   display: none;
 }
