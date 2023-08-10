@@ -27,6 +27,12 @@ $(document).ready(function () {
         <p>Temperature: ${data.main.temp}</p>
         <p>Description: ${data.weather[0].description}</p>
         `;
+        let icon = data.weather[0].icon;
+        let iconUrl = `https://openweathermap.org/img/wn/${icon}.png`;
+        let weatherIcon = document.createElement('img');
+        weatherIcon.src = iconUrl;
+        weatherDisplay.appendChild(weatherIcon);
+
         weatherDisplay.classList.remove('hidden');
         document.getElementById('error-message').parentElement.classList.add('hidden');
       })
