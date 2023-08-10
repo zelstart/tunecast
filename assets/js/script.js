@@ -22,21 +22,32 @@ $(document).ready(function () {
           <p>Temperature: ${data.main.temp}</p>
           <p>Description: ${data.weather[0].description}</p>
           `;
+          weatherDisplay.classList.remove('hidden');
+          document.getElementById('error-message').parentElement.classList.add('hidden');
         })
         .catch((error) => {
           console.error('Fetch error:', error);
+          let errorMessage = document.getElementById('error-message');
+          errorMessage.textContent = 'Please enter a valid location';
+          errorMessage.parentElement.classList.remove('hidden');
+          document.getElementById('weather-display').classList.add('hidden');
         });
     }
     $('#getWeatherBtn').click(function (){
       let locationInput = $('#location-input').val();
+      let errorMessage = document.getElementById('error-message');
       if (locationInput.trim() !== ''){
         getWeatherData(locationInput)
-      }
-    })
+    }else {
+      errorMessage.textContent = 'Please enter a valid location';
+      errorMessage.parentElement.classList.remove('hidden');
+    }
+  });
 
     $('#location-input').on('keydown', function (event) {
         if (event.keyCode === 13) {
             $('#getWeatherBtn').click();
+      
         }
     })
 
