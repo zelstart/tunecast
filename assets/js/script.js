@@ -25,6 +25,8 @@ $(document).ready(function () {
         })
         .catch((error) => {
           console.error('Fetch error:', error);
+          let errorMessage = document.getElementById('error-message');
+          errorMessage.textContent = 'Please enter a valid location';
         });
     }
     $('#getWeatherBtn').click(function (){
@@ -37,6 +39,9 @@ $(document).ready(function () {
     $('#location-input').on('keydown', function (event) {
         if (event.keyCode === 13) {
             $('#getWeatherBtn').click();
+        }else {
+          let errorMessage = document.getElementById('error-message');
+          errorMessage.textContent = 'Please enter a location';
         }
     })
 
