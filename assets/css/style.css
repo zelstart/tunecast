@@ -123,3 +123,7 @@ html {
 .hidden {
   display: none;
 }
+
+#geolocate-btn {
+  cursor: grab ;
+}
