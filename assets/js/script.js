@@ -25,7 +25,10 @@ $(document).ready(function () {
         weatherDisplay.innerHTML = `
         <p>City: ${data.name}</p>
         <p>Temperature: ${data.main.temp}</p>
+        <p>Feels Like: ${data.main.feels_like}</p>
         <p>Description: ${data.weather[0].description}</p>
+        <p>Wind Speed: ${data.wind.speed} mph</p>
+        <p>Humidity: ${data.main.humidity} %</p>
         `;
         let icon = data.weather[0].icon;
         let iconUrl = `https://openweathermap.org/img/wn/${icon}.png`;
