@@ -17,4 +17,18 @@
             console.error('Error fetching weather data:', error);
             return null;
         });
-}
+    }
+
+// function getCityState(latitude, longitude) {
+// const apiUrl = `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=$4851bf8ba85c400f924d6c035c7be750`;
+// fetch(apiUrl)
+//   .then(response => response.json())
+//   .then(data => {
+//     const city = data.results[0].components.city;
+//     const state = data.results[0].components.state_code;
+//     console.log(`City: ${cityFromLL}, State: ${statefromLL}`);
+//   })
+//   .catch(error => {
+//     console.error('Error:', error);
+//   });
+//   }
