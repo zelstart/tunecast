@@ -26,9 +26,16 @@
     <script src="https://code.jquery.com/jquery-3.7.0.js"
         integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
 
+    <!--YouTube API Scripts and iFrame Scripts-->
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+
     <!--Other Scripts-->
+    <!--<script src="assets/js/yt-script.js"></script>-->
+    <script src="assets/js/geolocation-script.js"></script>
     <script src="assets/js/script.js"></script>
     <script src="assets/js/dropdown.js"></script>
+   
 
 
     <title>Weather Music App</title>
@@ -62,7 +69,7 @@
 
     <section class="section">
         <div class="columns is-centered col-style2 p-4">
-            <div class="column is-6">
+            <div class="column is-6 video-container">
                 <img src="http://via.placeholder.com/700x400">
             </div>
             <div class="column is-3 m-5">
@@ -72,10 +79,11 @@
                 </div>
                 <div class="card my-card mb-2">
                     <div class="card-header">
-                        <p class="card-header-title">Lorem Ipsum</p>
+                        <p class="card-header-title" id="yt-title">Lorem Ipsum</p>
                     </div>
-                    <div class="card-content">
+                    <div class="card-content" id="yt-desc">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+                        <p id="url-container"></p>
                     </div>
                 </div>
                 <div class="columns is-centered">
