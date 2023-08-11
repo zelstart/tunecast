@@ -22,11 +22,15 @@ $(document).ready(function () {
       .then((data)=> {
         let weatherDisplay = document.getElementById('weather-display');
         $("#weather-display").removeClass("hidden");
-        weatherDisplay.innerHTML = `
-        <p>City: ${data.name}</p>
-        <p>Temperature: ${data.main.temp}</p>
-        <p>Description: ${data.weather[0].description}</p>
+       weatherDisplay.innerHTML = `
+        <p><span class="weather-label">City:</span> <span class="weather-value">${data.name}</span></p>
+        <p><span class="weather-label">Temperature:</span> <span class="weather-value">${data.main.temp}</span></p>
+        <p><span class="weather-label">Feels Like:</span> <span class="weather-value">${data.main.feels_like}</span></p>
+        <p><span class="weather-label">Description:</span> <span class="weather-value"> ${data.weather[0].description}</span></p>
+        <p><span class="weather-label">Wind Speed:</span> <span class="weather-value">${data.wind.speed} mph</span></p>
+        <p><span class="weather-label">Humidity:</span> <span class="weather-value">${data.main.humidity} %</p>
         `;
+
         let icon = data.weather[0].icon;
         let iconUrl = `https://openweathermap.org/img/wn/${icon}.png`;
         let weatherIcon = document.createElement('img');

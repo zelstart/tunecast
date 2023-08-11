@@ -119,6 +119,14 @@ html {
   margin-top: 5px;
 }
 
+.weather-label {
+  font-weight: bold;
+  color: var(--acc2-25);
+}
+
+.weather-value {
+  color: var(--dark);
+}
 
 .hidden {
   display: none;
