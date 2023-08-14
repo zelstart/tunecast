@@ -21,7 +21,7 @@
 
     <!--Font Awesome Icons-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
+    <script src="https://kit.fontawesome.com/5065905f26.js" crossorigin="anonymous"></script>
     <!--jQuery Script-->
     <script src="https://code.jquery.com/jquery-3.7.0.js"
         integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
@@ -37,30 +37,29 @@
    
 
 
-    <title>Weather Music App</title>
+    <title>TuneCast</title>
 </head>
 
 <body>
     <header class="hero">
         <div class="columns is-centered mb-3 p-2 col-style1">
             <div class="column is-12 col-style">
-                <h1 class="has-text-centered is-size-2-mobile">Weather Music App</h1>
+                <h1 class="has-text-centered is-size-2-mobile"><span class="first-letter">T</span>une<span class="first-letter">C</span>ast</h1>
                 <h2 class="has-text-centered is-size-5-mobile">Search your city here...</h2>
                 <div class="columns is-centered">
-                    <div class="column is-4">
+                    <div class="column is-4 search-bar">
                         <div class="field has-addons">
                             <div class="control is-expanded">
                                 <input id="location-input" class="input is-rounded" type="text" placeholder="boston, ma">
                             </div>
                             <div class="control">
                                 <button class="my-btn rounded-right button" id="getWeatherBtn">Get Weather</button> 
-                                <i id="geolocate-btn" class="fas fa-solid fa-crosshairs"></i>
+                                <button id="geolocate-btn" class="circular-button"><i class="fa-solid fa-location-dot fa-2xl" style="color: #ffffff;"></i></button>
                             </div>
                         </div>
-
                     </div>
                 </div>
-                <div class="hidden" id="weather-display"></div>
+                <div class="hidden column is-11" id="weather-display"></div>
                 <p class="hidden">Error: <span id="error-message" style="color: red;"></span> </p>
             </div>
         </div>
