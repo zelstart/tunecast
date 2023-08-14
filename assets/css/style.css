@@ -98,15 +98,27 @@ html {
   margin: 2px 0px 5px 0;
 }
 
-#prev {
-  margin-right: 3px;
-}
-
 .dropdown-container {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
+}
+
+#prev {
+  margin-right: 3px;
+}
+
+#video-container {
+  width: 560px;
+  height: 315px;
+  background-color: #ccc; /* Placeholder background color */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #666; /* Placeholder text color */
+  border: 1px solid #999; /* Placeholder border */
 }
 
 #location-input {

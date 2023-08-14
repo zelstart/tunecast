@@ -1,10 +1,22 @@
 
-// Code snippet modified from https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API/Using_the_Geolocation_API
+// Geolocation code snippet modified from https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API/Using_the_Geolocation_API
 
 $(document).ready(function () {
-  
-  const geoLocateButton = document.querySelector("#geolocate-btn");
 
+  const geoLocateButton = document.querySelector("#geolocate-btn");
+  
+  //const descriptionInput = $('#description-input');
+  const videoContainer = $('#video-container');
+  const urlContainer = $('#url-container');
+  //const ytTitle = $('yt-title');
+  //const ytDesc = $('yt-desc');
+
+  // Load the YouTube Data API client library
+  gapi.load('client', function () {
+    console.log('YouTube Data API loaded.');
+  });
+
+  //Gets the latitude and longitude of the user
   function getLatAndLong() {
     //Returns a promise that resolves with object containing lat and long values
     return new Promise((resolve, reject) => {
@@ -26,23 +38,175 @@ $(document).ready(function () {
     });
   }
 
-  /*
-  function getWeather() {
-      const temp = 80; // Fahrenheit
-      const weatherDesc = "rainy";
-      const windSpeed = 18; // mph
-      
-      return { temp, weatherDesc, windSpeed };
-  }*/
+  //Gets the weather data from the weather api using the latitude and longitude
+  function getWeatherByLatAndLong(latitude, longitude) {
+    let apiURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=7a0c14487898bae146a1b3a3863031d0&units=imperial`
 
+    return fetch(apiURL)
+      .then(response => response.json())
+      .then(data => {
+        let weatherData = {
+          temp: data.list[0].main.temp,
+          windSpeed: data.list[0].wind.speed,
+          weatherDesc: data.list[0].weather[0].description
+        }
+
+        // Update the weather display with the fetched weather data
+        updateWeatherDisplay(data);
+
+        return weatherData;
+      })
+      .catch(error => {
+        console.error('Error fetching weather data:', error);
+        return null;
+      });
+  }
+
+  //Updates the weather display
+  //NEEDS TO BE DEPRECATED FROM THE GETWEATHERBYCITYANDSTATE FUNCTION
+  function updateWeatherDisplay(weatherData) {
+    let weatherDisplay = document.getElementById('weather-display');
+    $("#weather-display").removeClass("hidden");
+    weatherDisplay.innerHTML = `
+      <p><span class="weather-label">City:</span> <span class="weather-value">${weatherData.city.name}</span></p>
+      <p><span class="weather-label">Temperature:</span> <span class="weather-value">${weatherData.list[0].main.temp}</span></p>
+      <p><span class="weather-label">Description:</span> <span class="weather-value">${weatherData.list[0].weather[0].description}</span></p>
+      <p><span class="weather-label">Wind Speed:</span> <span class="weather-value">${weatherData.list[0].wind.speed} mph</span></p>
+      <p><span class="weather-label">Humidity:</span> <span class="weather-value">${weatherData.list[0].main.humidity} %</span></p>
+  `;
+
+    let icon = weatherData.list[0].weather[0].icon;
+    let iconUrl = `https://openweathermap.org/img/wn/${icon}.png`;
+    let weatherIcon = document.createElement('img');
+    weatherIcon.src = iconUrl;
+    weatherDisplay.appendChild(weatherIcon);
+
+    weatherDisplay.classList.remove('hidden');
+    document.getElementById('error-message').parentElement.classList.add('hidden');
+  }
+
+
+  // Function to search for videos based on the provided searchTerm
+  function searchVideo(searchTerm) {
+    const apiKey = 'AIzaSyAefGEgFgDSYr7YSaSoBSSZojDDAYk5Xlo';
+    //const description = descriptionInput.val();
+    const maxResults = 1; // Number of results to fetch
+
+    // Use the API to search for videos by searchTerm
+    gapi.client.init({
+      'apiKey': apiKey,
+      'discoveryDocs': ['https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest']
+    }).then(function () {
+      return gapi.client.youtube.search.list({
+        q: searchTerm,
+        part: 'snippet',
+        type: 'video',
+        maxResults: maxResults
+      });
+    }).then(function (response) {
+      // Handle the search results
+      const items = response.result.items;
+      if (items.length > 0) {
+        for (const item of items) {
+          const videoId = item.id.videoId;
+          const videoLink = `https://www.youtube.com/watch?v=${videoId}`;
+
+          embedVideo(videoId);
+
+          urlContainer.attr('href', videoLink);
+          urlContainer.text(videoLink);
+
+          //return videoId;
+        }
+      } else {
+        console.log('No videos found with the given description.');
+      }
+    }).catch(function (error) {
+      console.error('Error fetching videos:', error);
+    });
+  };
+
+  //Gets the search term by using the temperature and the windspeed as parameters
+  function getSearchTerm(temp, windSpeed) {
+    const temperatureWords = {
+      hot: ["scorching", "blazing", "sizzling", "hot", "sweaty", "summer", "sun", "party"],
+      warm: ["spring", "comfy", "warm", "crisp"],
+      cool: ["fall", "chilly", "refreshing", "crisp", "dew"],
+      cold: ["winter", "freezing", "frigid", "icy", "snow"]
+    };
+
+    const windSpeedWords = {
+      slow: ["calm", "tranquil", "gentle", "chill", "slow", "beats", "lo-fi", "lo-fi beats"],
+      fast: ["breezy", "upbeat", "windy", "dance", "edm", "fast"]
+    };
+
+    const ytMusicIdentifier = ["vevo", "song", "soundcloud", "bandcamp"];
+
+    let temperatureCondition;
+    if (parseFloat(temp) > 30.0) {
+      temperatureCondition = "hot";
+    } else if (parseFloat(temp) > 20.0) {
+      temperatureCondition = "warm";
+    } else if (parseFloat(temp) > 10.0) {
+      temperatureCondition = "cool";
+    } else {
+      temperatureCondition = "cold";
+    }
+
+    let windSpeedCondition;
+    if (windSpeed > 5.0) {
+      windSpeedCondition = "fast";
+    } else {
+      windSpeedCondition = "slow";
+    }
+
+    const randomMusicIdentifier = ytMusicIdentifier[Math.floor(Math.random() * ytMusicIdentifier.length)];
+    const randomTemperatureWord = temperatureWords[temperatureCondition][Math.floor(Math.random() * temperatureWords[temperatureCondition].length)];
+    const randomWindSpeedWord = windSpeedWords[windSpeedCondition][Math.floor(Math.random() * windSpeedWords[windSpeedCondition].length)];
+
+    let searchTerm = `${randomMusicIdentifier} ${randomTemperatureWord} ${randomWindSpeedWord}`;
+    return searchTerm;
+  }
+
+  //Embeds the video by using the videoId provided by the searchVideo function
+  function embedVideo(videoId) {
+    // Create a new <div> element for the player
+    const playerDiv = $('<div></div>').addClass('youtube-player');
+
+    // Append the player div to the videoContainer
+    videoContainer.empty().append(playerDiv);
+
+    // Create a new YouTube player in the playerDiv
+    new YT.Player(playerDiv[0], {
+      videoId: videoId,
+      width: 560,
+      height: 315,
+      playerVars: {
+        // Other params
+      }
+    });
+  };
+
+
+  //Applies the click event to the geolocate button and calls all the required functions
   geoLocateButton.addEventListener("click", async () => {
     try {
+      //Gets coordinates
       const coordinates = await getLatAndLong(); // Needed to await result of promise
       console.log("Latitude:", coordinates.latitude, "Longitude:", coordinates.longitude); // Delete
-      // const weatherData = getWeatherByLatAndLong(coordinates.latitude, coordinates.longitude);
-      // const searchTerm = getSearchTerm(weatherData.temp, weatherData.weatherDesc, weatherData.windSpeed);
-      //const videoId = searchVideo("sad");
-      //embedVideo(videoId);
+
+      //Gets the weather by the Lat and Long and applies it to the weatherData object
+      const weatherData = await getWeatherByLatAndLong(coordinates.latitude, coordinates.longitude);
+      console.log(weatherData);
+
+      //Gets the search term depending on the temperature and the windspeed
+      const searchTerm = getSearchTerm(weatherData.temp, weatherData.windSpeed);
+      console.log(searchTerm);
+
+      //Gets the video Id by using the search term
+      //THIS CALLS embedVideo IN THE FUNCTION IDK WHY IT WON'T WORK OUTSIDE
+      searchVideo(searchTerm);
+
     } catch (error) {
       console.error(error);
     }
