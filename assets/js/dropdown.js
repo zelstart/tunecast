@@ -12,6 +12,8 @@ $(document).ready(function () {
     $('#dropdown-menu').on('click', '.dropdown-item', function (event) {
         let searchTerms = $(event.target).text().trim();
         console.log(searchTerms);
+        const videoId = searchVideo(searchTerms);
+        embedVideo(videoId);
     });
 })
 

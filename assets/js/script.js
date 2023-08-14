@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-  function getWeatherData(city, state) {
+  function getWeatherByCityAndState(city, state) {
       let apiKey = 'fc83ec8cd64eb691a5994da1280e5c60';
       let weatherUrl = 'https://api.openweathermap.org/data/2.5/weather?q=';
       let apiWeatherUrl = `${weatherUrl}${city}`;
@@ -25,7 +25,6 @@ $(document).ready(function () {
        weatherDisplay.innerHTML = `
         <p><span class="weather-label">City:</span> <span class="weather-value">${data.name}</span></p>
         <p><span class="weather-label">Temperature:</span> <span class="weather-value">${data.main.temp}</span></p>
-        <p><span class="weather-label">Feels Like:</span> <span class="weather-value">${data.main.feels_like}</span></p>
         <p><span class="weather-label">Description:</span> <span class="weather-value"> ${data.weather[0].description}</span></p>
         <p><span class="weather-label">Wind Speed:</span> <span class="weather-value">${data.wind.speed} mph</span></p>
         <p><span class="weather-label">Humidity:</span> <span class="weather-value">${data.main.humidity} %</p>
@@ -48,6 +47,8 @@ $(document).ready(function () {
         document.getElementById('weather-display').classList.add('hidden');
       });
   }
+
+
   $('#getWeatherBtn').click(function () {
     let locationInput = $('#location-input').val().toLowerCase().trim();
     let locationInputSplit = locationInput.split(",");
@@ -63,12 +64,14 @@ $(document).ready(function () {
       errorMessage.parentElement.classList.add('hidden');
   
       if (state) {
-        getWeatherData(city, state);
+        const weatherData = getWeatherByCityAndState(city, state);
+        console.log(weatherData);
       } else {
-        getWeatherData(city);
+        getWeatherByCityAndState(city);
       }
     }
   });
+
 
   $('#location-input').on('keydown', function (event) {
       if (event.keyCode === 13) {
