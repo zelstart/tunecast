@@ -154,3 +154,6 @@ color: var(--dark);
 display: none;
 }
 
+.first-letter {
+  font-size: 125%;
+}
