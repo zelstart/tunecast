@@ -105,6 +105,19 @@ html {
   margin-top: 20px;
 }
 
+.circular-button {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin-left: -5px;
+}
+
+
+
 #prev {
   margin-right: 3px;
 }
@@ -144,6 +157,3 @@ html {
   display: none;
 }
 
-#geolocate-btn {
-  cursor: grab ;
-}
