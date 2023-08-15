@@ -257,6 +257,7 @@ $(document).ready(function () {
 
   function saveVideos(videoLink, videoId) { // not sure which one of these i need for the embedVideo function.
     localStorage.setItem('videoHistory', JSON.stringify(videoHistory)); // Store the updated history in localStorage
+    videoHistory.unshift(videoLink); // add new item to the front of the array
     console.log('VIDEO HISTORY: ', videoHistory);
   }
 
