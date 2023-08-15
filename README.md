@@ -5,6 +5,7 @@ An application that uses the user's location and uses the weather data for their
 ## Screenshots
 
 ## Credits
+[Modal js Code is taken straight from Bulma](https://bulma.io/documentation/components/modal/#javascript-implementation-example)
 
 ## Licenses
 MIT
