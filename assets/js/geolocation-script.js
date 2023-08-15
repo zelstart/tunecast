@@ -4,7 +4,7 @@
 $(document).ready(function () {
 
   const geoLocateButton = document.querySelector("#geolocate-btn");
-  
+
   //const descriptionInput = $('#description-input');
   const videoContainer = $('#video-container');
   const urlContainer = $('#url-container');
@@ -112,6 +112,7 @@ $(document).ready(function () {
           const videoLink = `https://www.youtube.com/watch?v=${videoId}`;
 
           embedVideo(videoId);
+          saveVideos(videoId, videoLink);
 
           urlContainer.attr('href', videoLink);
           urlContainer.text(videoLink);
@@ -196,7 +197,7 @@ $(document).ready(function () {
     function onPlayerReady(event) {
       // Get video title from the player
       const videoTitle = player.getVideoData().title;
-      
+
 
       console.log(player.getVideoData().description);
       console.log(videoTitle);
@@ -205,24 +206,24 @@ $(document).ready(function () {
 
       // Populate ytTitle and ytDesc with video title and description
       $('#yt-title').text(videoTitle);
-      
+
     }
   }
 
-    // open/close dropdown menu
-    $('#choice-dropdown').click(function () {
-      let screenWidth = window.innerWidth;
-      $('#choice-dropdown').toggleClass("is-active");
-      if (screenWidth < 600) { // if viewing on mobile screens, will make the dropdown menu go up
-          $('#choice-dropdown').addClass("is-up")
-      }
+  // open/close dropdown menu
+  $('#choice-dropdown').click(function () {
+    let screenWidth = window.innerWidth;
+    $('#choice-dropdown').toggleClass("is-active");
+    if (screenWidth < 600) { // if viewing on mobile screens, will make the dropdown menu go up
+      $('#choice-dropdown').addClass("is-up")
+    }
   });
 
   // click on dropdown menu item will save the user's choice as "searchTerms"
   $('#dropdown-menu').on('click', '.dropdown-item', function (event) {
-      let searchTerms = $(event.target).text().trim();
-      console.log(searchTerms);
-      searchVideo(searchTerms);
+    let searchTerms = $(event.target).text().trim();
+    console.log(searchTerms);
+    searchVideo(searchTerms);
   });
 
 
@@ -248,6 +249,30 @@ $(document).ready(function () {
     } catch (error) {
       console.error(error);
     }
+  });
+
+
+  let videoHistory = JSON.parse(localStorage.getItem('videoHistory')) || [];
+  let currentVideoIndex = -1; // sets the value of currentVideoIndex to use for moving forward/backwards through the array
+
+  function saveVideos(videoLink, videoId) { // not sure which one of these i need for the embedVideo function.
+    localStorage.setItem('videoHistory', JSON.stringify(videoHistory)); // Store the updated history in localStorage
+    console.log('VIDEO HISTORY: ', videoHistory);
+  }
+
+  $('#prev').click(function () { // on prev button click...
+    if (currentVideoIndex > 0) { // ...if index is greater than 0...
+      currentVideoIndex--; // ... decrease it by 1...
+      embedVideo(videoHistory[currentVideoIndex]); //... embedVideo using the videoHistory's data, and currentVideoIndex to get the previous video
+    }
+  });
+
+  $('#next').click(function () {
+    if (currentVideoIndex < videoHistory.length - 1) {
+      currentVideoIndex++;
+      embedVideo(videoHistory[currentVideoIndex]);
+    }
+    // make it so that if currentVideoIndex is at 0, a new video is searched and embedded
   });
 
 });
