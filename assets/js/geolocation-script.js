@@ -112,7 +112,7 @@ $(document).ready(function () {
           const videoLink = `https://www.youtube.com/watch?v=${videoId}`;
 
           embedVideo(videoId);
-          saveVideos(videoId, videoLink);
+          saveVideos(videoId);
 
           urlContainer.attr('href', videoLink);
           urlContainer.text(videoLink);
@@ -255,9 +255,9 @@ $(document).ready(function () {
   let videoHistory = JSON.parse(localStorage.getItem('videoHistory')) || [];
   let currentVideoIndex = -1; // sets the value of currentVideoIndex to use for moving forward/backwards through the array
 
-  function saveVideos(videoLink, videoId) { // not sure which one of these i need for the embedVideo function.
+  function saveVideos(videoId) { // not sure which one of these i need for the embedVideo function.
     localStorage.setItem('videoHistory', JSON.stringify(videoHistory)); // Store the updated history in localStorage
-    videoHistory.unshift(videoLink); // add new item to the front of the array
+    videoHistory.unshift(videoId); // add new item to the front of the array
     console.log('VIDEO HISTORY: ', videoHistory);
   }
 
