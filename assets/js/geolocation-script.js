@@ -253,11 +253,19 @@ $(document).ready(function () {
 
 
   let videoHistory = JSON.parse(localStorage.getItem('videoHistory')) || [];
-  let currentVideoIndex = -1; // sets the value of currentVideoIndex to use for moving forward/backwards through the array
+  let currentVideoIndex = parseInt(localStorage.getItem('currentVideoIndex')) || -1; //sets the value of currentVideoIndex to use for moving forward/backwards through the array
+
+  function saveCurrentVideoIndex() {
+    localStorage.setItem('currentVideoIndex', currentVideoIndex.toString());
+  }
+  
 
   function saveVideos(videoId) { // not sure which one of these i need for the embedVideo function.
-    localStorage.setItem('videoHistory', JSON.stringify(videoHistory)); // Store the updated history in localStorage
-    videoHistory.unshift(videoId); // add new item to the front of the array
+    videoHistory.unshift(videoId); // Add new item to the front of the array
+    if (videoHistory.length > 9) {
+      videoHistory.pop(); // Remove the oldest video if there are more than 10
+    }
+    localStorage.setItem('videoHistory', JSON.stringify(videoHistory)); // Store the updated history in localStorage  
     console.log('VIDEO HISTORY: ', videoHistory);
   }
 
@@ -265,6 +273,7 @@ $(document).ready(function () {
     if (currentVideoIndex > 0) { // ...if index is greater than 0...
       currentVideoIndex--; // ... decrease it by 1...
       embedVideo(videoHistory[currentVideoIndex]); //... embedVideo using the videoHistory's data, and currentVideoIndex to get the previous video
+      saveCurrentVideoIndex();
     }
   });
 
@@ -272,8 +281,14 @@ $(document).ready(function () {
     if (currentVideoIndex < videoHistory.length - 1) {
       currentVideoIndex++;
       embedVideo(videoHistory[currentVideoIndex]);
+      saveCurrentVideoIndex();
     }
     // make it so that if currentVideoIndex is at 0, a new video is searched and embedded
   });
 
+  $('#clear-history').click(function () {
+    localStorage.removeItem('videoHistory'); // Clear the video history from localStorage
+    videoHistory = []; // Clear the videoHistory array in memory
+    currentVideoIndex = -1; // Reset currentVideoIndex
+  })
 });

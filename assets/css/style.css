@@ -108,6 +108,10 @@ margin-top: 20px;
   cursor: pointer;
 }
 
+#clear-history {
+  cursor: pointer;
+}
+
 .circular-button {
 display: inline-block;
 width: 40px;
@@ -161,3 +165,4 @@ display: none;
 .first-letter {
   font-size: 125%;
 }
+
