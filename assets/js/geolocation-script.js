@@ -8,8 +8,8 @@ $(document).ready(function () {
   //const descriptionInput = $('#description-input');
   const videoContainer = $('#video-container');
   const urlContainer = $('#url-container');
-  //const ytTitle = $('yt-title');
-  //const ytDesc = $('yt-desc');
+  const ytTitle = $('yt-title');
+  const ytDesc = $('yt-desc');
 
   // Load the YouTube Data API client library
   gapi.load('client', function () {
@@ -165,6 +165,8 @@ $(document).ready(function () {
     const randomWindSpeedWord = windSpeedWords[windSpeedCondition][Math.floor(Math.random() * windSpeedWords[windSpeedCondition].length)];
 
     let searchTerm = `${randomMusicIdentifier} ${randomTemperatureWord} ${randomWindSpeedWord}`;
+
+    $('#yt-desc').html("We've found some music for you based on these criteria: " + "<br><br>" + randomTemperatureWord + "<br>" + randomWindSpeedWord + "<br><br>" + "Happy listening!!");
     return searchTerm;
   }
 
@@ -176,16 +178,52 @@ $(document).ready(function () {
     // Append the player div to the videoContainer
     videoContainer.empty().append(playerDiv);
 
+
     // Create a new YouTube player in the playerDiv
-    new YT.Player(playerDiv[0], {
+    const player = new YT.Player(playerDiv[0], {
       videoId: videoId,
       width: 560,
       height: 315,
       playerVars: {
         // Other params
+      },
+      events: {
+        'onReady': onPlayerReady
       }
     });
-  };
+
+
+    function onPlayerReady(event) {
+      // Get video title from the player
+      const videoTitle = player.getVideoData().title;
+      
+
+      console.log(player.getVideoData().description);
+      console.log(videoTitle);
+
+      $("#content").removeClass("hidden");
+
+      // Populate ytTitle and ytDesc with video title and description
+      $('#yt-title').text(videoTitle);
+      
+    }
+  }
+
+    // open/close dropdown menu
+    $('#choice-dropdown').click(function () {
+      let screenWidth = window.innerWidth;
+      $('#choice-dropdown').toggleClass("is-active");
+      if (screenWidth < 600) { // if viewing on mobile screens, will make the dropdown menu go up
+          $('#choice-dropdown').addClass("is-up")
+      }
+  });
+
+  // click on dropdown menu item will save the user's choice as "searchTerms"
+  $('#dropdown-menu').on('click', '.dropdown-item', function (event) {
+      let searchTerms = $(event.target).text().trim();
+      console.log(searchTerms);
+      searchVideo(searchTerms);
+  });
 
 
   //Applies the click event to the geolocate button and calls all the required functions
