@@ -46,7 +46,13 @@
         <div class="columns is-centered mb-3 p-2 col-style1">
             <div class="column is-12 col-style">
                 <div>
-                    <i id="info" class="fa-solid fa-circle-info fa-xl" style="color: #ffffff;" data-target="js-modal-trigger"></i>
+                    <div>
+                        <i id="info" class="fa-solid fa-circle-info fa-xl" style="color: #ffffff;"
+                            data-target="js-modal-trigger"></i> <br>
+                    </div>
+                    <div style="margin-top: 4px;">
+                    <i id="clear-history" class="fa-solid fa-circle-xmark fa-xl" style="color: #ffffff;"></i>
+                    </div>
                 </div>
                 <h1 class="has-text-centered is-size-2-mobile"><span class="first-letter">T</span>une<span
                         class="first-letter">C</span>ast</h1>
@@ -128,20 +134,27 @@
         </div>
     </section>
 
+
+
+
+
     <div class="modal is-clipped">
         <div class="modal-background"></div>
         <div class="modal-content">
-          <!-- Any other Bulma elements you want -->
-          <div class="card">
-            <div class="card-header px-6 is-size-2 is-size-5-mobile">What is TuneCast?</div>
-            <div class="card-content px-6">
-                Use the weather forcast to find your new favorite song! You can either enter your city name (add state for more accuracy!), 
-                or simply click the gps location pin to get instant results with minimal effort. 
+            <!-- Any other Bulma elements you want -->
+            <div class="card">
+                <div class="card-header px-6 is-size-2 is-size-5-mobile">What is TuneCast?</div>
+                <div class="card-content px-6">
+                    Use the weather forcast to find your new favorite song! You can either enter your city name (add
+                    state for more accuracy!),
+                    or simply click the gps location pin to get instant results with minimal effort.
+
+                    To clear your video history, simply click the x located in the top left-hand corner.
+                </div>
             </div>
-          </div>
         </div>
         <button class="modal-close is-large" aria-label="close"></button>
-      </div>
+    </div>
 
 
 </body>
