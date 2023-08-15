@@ -104,6 +104,10 @@ align-items: center;
 margin-top: 20px;
 }
 
+#info {
+  cursor: pointer;
+}
+
 .circular-button {
 display: inline-block;
 width: 40px;
