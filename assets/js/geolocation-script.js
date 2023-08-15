@@ -270,21 +270,22 @@ $(document).ready(function () {
   }
 
   $('#prev').click(function () { // on prev button click...
-    if (currentVideoIndex > 0) { // ...if index is greater than 0...
-      currentVideoIndex--; // ... decrease it by 1...
+    if (currentVideoIndex < videoHistory.length - 1) { // ...if index is greater than 0...
+      currentVideoIndex++; // ... increase it by 1...
       embedVideo(videoHistory[currentVideoIndex]); //... embedVideo using the videoHistory's data, and currentVideoIndex to get the previous video
-      saveCurrentVideoIndex();
-    }
-  });
-
-  $('#next').click(function () {
-    if (currentVideoIndex < videoHistory.length - 1) {
-      currentVideoIndex++;
-      embedVideo(videoHistory[currentVideoIndex]);
       saveCurrentVideoIndex();
     }
     // make it so that if currentVideoIndex is at 0, a new video is searched and embedded
   });
+
+  $('#next').click(function () { 
+    if (currentVideoIndex > 0) { 
+      currentVideoIndex--; 
+      embedVideo(videoHistory[currentVideoIndex]); 
+      saveCurrentVideoIndex();
+    }
+  });
+
 
   $('#clear-history').click(function () {
     localStorage.removeItem('videoHistory'); // Clear the video history from localStorage
