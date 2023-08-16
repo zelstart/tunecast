@@ -1,4 +1,4 @@
-# Weather Music App
+# TuneCast
 ## Description
 An application that uses the user's location and uses the weather data for their area to suggest a YouTube Music Video. 
 
