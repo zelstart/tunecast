@@ -32,8 +32,7 @@
 
     <!--Other Scripts-->
     <script src="assets/js/geolocation-script.js"></script>
-    <script src="assets/js/script.js"></script>
-    <script src="assets/js/dropdown.js"></script>
+
     <script src="assets/js/info-modal.js"></script>
 
 
@@ -45,32 +44,37 @@
     <header class="hero">
         <div class="columns is-centered mb-3 p-2 col-style1">
             <div class="column is-12 col-style">
-                <div>
-                    <i id="info" class="fa-solid fa-circle-info fa-xl" style="color: #ffffff;" data-target="js-modal-trigger"></i>
-                </div>
-                <h1 class="has-text-centered is-size-2-mobile"><span class="first-letter">T</span>une<span
-                        class="first-letter">C</span>ast</h1>
-                <h2 class="has-text-centered is-size-5-mobile">Search your city here...</h2>
-                <div class="columns is-centered">
-                    <div class="column is-4 search-bar">
-                        <div class="field has-addons">
-                            <div class="control is-expanded">
-                                <input id="location-input" class="input is-rounded" type="text"
-                                    placeholder="boston, ma">
-                            </div>
-                            <div class="control">
-                                <button class="my-btn rounded-right button" id="getWeatherBtn">Get Weather</button>
-                                <button id="geolocate-btn" class="circular-button"><i
-                                        class="fa-solid fa-location-dot fa-2xl" style="color: #ffffff;"></i></button>
-                            </div>
-                        </div>
+                <div style="margin-left: 8px;">
+                    <div>
+                        <i id="info" class="fa-solid fa-circle-info fa-xl" style="color: #ffffff;"
+                            data-target="js-modal-trigger"></i> <br>
+                    </div>
+                    <div style="margin-top: 4px;">
+                        <i id="clear-history" class="fa-solid fa-circle-xmark fa-xl" style="color: #ffffff;"></i>
                     </div>
                 </div>
+                <div>
+                    <img id="cloud" src="assets/images/cloud.png" alt="a cloud" >
+                </div>
+                <h1 class="has-text-centered is-size-2-mobile cstm-h1"><span class="first-letter">T</span>une<span
+                        class="first-letter">C</span>ast</h1>
+                <div class="columns is-centered">
+                    <div class="column is-4 search-bar">
+                    </div>
+                </div>
+                <div class="has-text-centered">
+                    <button id="geolocate-btn" class="button my-btn"><i class="fa-solid fa-location-dot fa-l"
+                            style="margin-right: 5px;"></i> TuneCast Me A Song!</button>
+                </div>
+                <div>
                 <div class="hidden column is-11" id="weather-display" style="margin: auto"></div>
                 <p class="hidden">Error: <span id="error-message" style="color: red;"></span> </p>
             </div>
+            </div>
         </div>
     </header>
+
+
 
     <section id="content" class="section hidden">
         <div class="columns is-centered col-style2 p-4">
@@ -117,7 +121,7 @@
                                         Gentle and relaxing
                                     </a>
                                     <a class="dropdown-item">
-                                        Anything - surprise me!
+                                        Light and carefree
                                     </a>
                                 </div>
                             </div>
@@ -128,20 +132,26 @@
         </div>
     </section>
 
+
+
+
+
     <div class="modal is-clipped">
         <div class="modal-background"></div>
         <div class="modal-content">
-          <!-- Any other Bulma elements you want -->
-          <div class="card">
-            <div class="card-header px-6 is-size-2 is-size-5-mobile">What is TuneCast?</div>
-            <div class="card-content px-6">
-                Use the weather forcast to find your new favorite song! You can either enter your city name (add state for more accuracy!), 
-                or simply click the gps location pin to get instant results with minimal effort. 
+            <!-- Any other Bulma elements you want -->
+            <div class="card">
+                <div class="card-header px-6 is-size-2 is-size-5-mobile">What is TuneCast?</div>
+                <div class="card-content px-6">
+                    Use the weather forcast to find your new favorite song! Simply click on "TuneCast Me A Song!" and you will get 
+                    the weather forecast for your area. You'll get a YouTube video below based on weather conditions in your area! <br> <br>
+
+                    To clear your video history, simply click the x located in the top left-hand corner.
+                </div>
             </div>
-          </div>
         </div>
         <button class="modal-close is-large" aria-label="close"></button>
-      </div>
+    </div>
 
 
 </body>
