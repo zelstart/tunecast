@@ -1,3 +1,5 @@
+
+
 $(document).ready(function () {
 
   function getWeatherByCityAndState(city, state) {
@@ -30,6 +32,14 @@ $(document).ready(function () {
         <p><span class="weather-label">Wind Speed:</span> <span class="weather-value">${data.wind.speed} mph</span></p>
         <p><span class="weather-label">Humidity:</span> <span class="weather-value">${data.main.humidity} %</p>
         `;
+        let weatherData = {
+          temp: $(data.main.temp),
+          windSpeed: $(data.wind.speed),
+          weatherDesc: $(data.weather[0].description)
+        }
+
+       
+        console.log(weatherData);
 
         let icon = data.weather[0].icon;
         let iconUrl = `https://openweathermap.org/img/wn/${icon}.png`;
@@ -39,6 +49,7 @@ $(document).ready(function () {
 
         weatherDisplay.classList.remove('hidden');
         document.getElementById('error-message').parentElement.classList.add('hidden');
+        return weatherData;
       })
       .catch((error) => {
         console.error('Fetch error:', error);
@@ -67,8 +78,20 @@ $(document).ready(function () {
       if (state) {
         const weatherData = getWeatherByCityAndState(city, state);
         console.log(weatherData);
+
+        // Generate search term based on weather data
+        const searchTerm = getSearchTerm(weatherData.temp, weatherData.windSpeed);
+
+        // Search for a YouTube video using the generated search term
+        searchVideo(searchTerm);
       } else {
         getWeatherByCityAndState(city);
+
+        // Generate search term based on weather data
+        const searchTerm = getSearchTerm(weatherData.temp, weatherData.windSpeed);
+
+       // Search for a YouTube video using the generated search term
+       searchVideo(searchTerm);
       }
     }
   });

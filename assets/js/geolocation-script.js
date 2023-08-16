@@ -5,11 +5,11 @@ $(document).ready(function () {
 
   const geoLocateButton = document.querySelector("#geolocate-btn");
 
-  //const descriptionInput = $('#description-input');
   const videoContainer = $('#video-container');
   const urlContainer = $('#url-container');
-  const ytTitle = $('yt-title');
-  const ytDesc = $('yt-desc');
+
+  var glSearchTerm = "";
+  var glWeatherData;
 
   // Load the YouTube Data API client library
   gapi.load('client', function () {
@@ -88,7 +88,7 @@ $(document).ready(function () {
 
   // Function to search for videos based on the provided searchTerm
   function searchVideo(searchTerm) {
-    const apiKey = 'AIzaSyAefGEgFgDSYr7YSaSoBSSZojDDAYk5Xlo';
+    const apiKey = 'AIzaSyAF_kOL8I7oy03kws7RLQcXyuo1DpkOfYM';
     //const description = descriptionInput.val();
     const maxResults = 1; // Number of results to fetch
 
@@ -128,27 +128,29 @@ $(document).ready(function () {
   };
 
   //Gets the search term by using the temperature and the windspeed as parameters
+  //
+  // FUTURE DEV: Create a paramater for weatherDesc and have that effect the searchTerm
   function getSearchTerm(temp, windSpeed) {
     const temperatureWords = {
       hot: ["scorching", "blazing", "sizzling", "hot", "sweaty", "summer", "sun", "party"],
       warm: ["spring", "comfy", "warm", "crisp"],
-      cool: ["fall", "chilly", "refreshing", "crisp", "dew"],
+      cool: ["fall", "chilly", "refreshing", "crisp", "dew", "sweater"],
       cold: ["winter", "freezing", "frigid", "icy", "snow"]
     };
 
     const windSpeedWords = {
-      slow: ["calm", "tranquil", "gentle", "chill", "slow", "beats", "lo-fi", "lo-fi beats"],
+      slow: ["calm", "tranquil", "gentle", "chill", "slow", "beats", "lo-fi"],
       fast: ["breezy", "upbeat", "windy", "dance", "edm", "fast"]
     };
 
-    const ytMusicIdentifier = ["vevo", "song", "soundcloud", "bandcamp"];
+    const ytGenre = ["vevo", "song", "hip-hop", "rock and roll" ,"blues", "rap", "lo-fi beats"];
 
     let temperatureCondition;
-    if (parseFloat(temp) > 30.0) {
+    if (parseFloat(temp) > 90.0) {
       temperatureCondition = "hot";
-    } else if (parseFloat(temp) > 20.0) {
+    } else if (parseFloat(temp) > 70.0) {
       temperatureCondition = "warm";
-    } else if (parseFloat(temp) > 10.0) {
+    } else if (parseFloat(temp) > 50.0) {
       temperatureCondition = "cool";
     } else {
       temperatureCondition = "cold";
@@ -161,13 +163,15 @@ $(document).ready(function () {
       windSpeedCondition = "slow";
     }
 
-    const randomMusicIdentifier = ytMusicIdentifier[Math.floor(Math.random() * ytMusicIdentifier.length)];
+    const randomMusicIdentifier = ytGenre[Math.floor(Math.random() * ytGenre.length)];
     const randomTemperatureWord = temperatureWords[temperatureCondition][Math.floor(Math.random() * temperatureWords[temperatureCondition].length)];
     const randomWindSpeedWord = windSpeedWords[windSpeedCondition][Math.floor(Math.random() * windSpeedWords[windSpeedCondition].length)];
 
     let searchTerm = `${randomMusicIdentifier} ${randomTemperatureWord} ${randomWindSpeedWord}`;
 
-    $('#yt-desc').html("We've found some music for you based on these criteria: " + "<br><br>" + randomTemperatureWord + "<br>" + randomWindSpeedWord + "<br><br>" + "Happy listening!!");
+    glSearchTerm = searchTerm;
+
+    $('#yt-desc').html("We've found some music to fit the weather based on these keywords: " + "<br><br>" + randomTemperatureWord + "<br>" + randomWindSpeedWord + "<br><br>" + "Happy listening!!");
     return searchTerm;
   }
 
@@ -198,13 +202,11 @@ $(document).ready(function () {
       // Get video title from the player
       const videoTitle = player.getVideoData().title;
 
-
-      console.log(player.getVideoData().description);
       console.log(videoTitle);
 
       $("#content").removeClass("hidden");
 
-      // Populate ytTitle and ytDesc with video title and description
+      // Populate ytTitle with video title and description
       $('#yt-title').text(videoTitle);
 
     }
@@ -222,8 +224,8 @@ $(document).ready(function () {
   // click on dropdown menu item will save the user's choice as "searchTerms"
   $('#dropdown-menu').on('click', '.dropdown-item', function (event) {
     let searchTerms = $(event.target).text().trim();
-    console.log(searchTerms);
-    searchVideo(searchTerms);
+    console.log(glSearchTerm + " "  + searchTerms);
+    searchVideo(glSearchTerm + " "  + searchTerms);
   });
 
 
@@ -236,6 +238,7 @@ $(document).ready(function () {
 
       //Gets the weather by the Lat and Long and applies it to the weatherData object
       const weatherData = await getWeatherByLatAndLong(coordinates.latitude, coordinates.longitude);
+      glWeatherData = weatherData;
       console.log(weatherData);
 
       //Gets the search term depending on the temperature and the windspeed
@@ -255,10 +258,10 @@ $(document).ready(function () {
   let videoHistory = JSON.parse(localStorage.getItem('videoHistory')) || [];
   let currentVideoIndex = parseInt(localStorage.getItem('currentVideoIndex')) || -1; //sets the value of currentVideoIndex to use for moving forward/backwards through the array
 
+
   function saveCurrentVideoIndex() {
     localStorage.setItem('currentVideoIndex', currentVideoIndex.toString());
   }
-  
 
   function saveVideos(videoId) { // not sure which one of these i need for the embedVideo function.
     videoHistory.unshift(videoId); // Add new item to the front of the array
@@ -275,14 +278,18 @@ $(document).ready(function () {
       embedVideo(videoHistory[currentVideoIndex]); //... embedVideo using the videoHistory's data, and currentVideoIndex to get the previous video
       saveCurrentVideoIndex();
     }
-    // make it so that if currentVideoIndex is at 0, a new video is searched and embedded
   });
 
   $('#next').click(function () { 
     if (currentVideoIndex > 0) { 
       currentVideoIndex--; 
       embedVideo(videoHistory[currentVideoIndex]); 
+      console.log(currentVideoIndex);
       saveCurrentVideoIndex();
+    }else{
+      glSearchTerm = getSearchTerm(glWeatherData.temp, glWeatherData.windSpeed);
+      searchVideo(glSearchTerm);
+      console.log(glSearchTerm);
     }
   });
 
@@ -292,4 +299,121 @@ $(document).ready(function () {
     videoHistory = []; // Clear the videoHistory array in memory
     currentVideoIndex = -1; // Reset currentVideoIndex
   })
+
+  /*
+  function getWeatherByCityAndState(city, state) {
+    let apiKey = 'fc83ec8cd64eb691a5994da1280e5c60';
+    let weatherUrl = 'https://api.openweathermap.org/data/2.5/weather?q=';
+    let apiWeatherUrl = `${weatherUrl}${city}`;
+
+    if (state) {
+      apiWeatherUrl += `,${state},US`;
+    }
+
+    apiWeatherUrl += `&appid=${apiKey}&units=imperial`;
+
+  fetch(apiWeatherUrl)
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        console.error('Error fetching weather data:', response.status);
+      }
+    })
+    .then((data)=> {
+      let weatherDisplay = document.getElementById('weather-display');
+      $("#weather-display").removeClass("hidden");
+     weatherDisplay.innerHTML = `
+      <p><span class="weather-label">City:</span> <span class="weather-value">${data.name}</span></p>
+      <p><span class="weather-label">Temperature:</span> <span class="weather-value">${data.main.temp}°F</span></p>
+      <p><span class="weather-label">Feels Like:</span> <span class="weather-value">${data.main.feels_like}°F</span></p>
+      <p><span class="weather-label">Description:</span> <span class="weather-value"> ${data.weather[0].description}</span></p>
+      <p><span class="weather-label">Wind Speed:</span> <span class="weather-value">${data.wind.speed} mph</span></p>
+      <p><span class="weather-label">Humidity:</span> <span class="weather-value">${data.main.humidity} %</p>
+      `;
+   
+      let weatherData = {
+        temp: data.main.temp,
+        windSpeed: data.wind.speed,
+        weatherDesc: $(data.weather[0].description)
+      }
+
+     
+     glWeatherData = weatherData;
+
+      let icon = data.weather[0].icon;
+      let iconUrl = `https://openweathermap.org/img/wn/${icon}.png`;
+      let weatherIcon = document.createElement('img');
+      weatherIcon.src = iconUrl;
+      weatherDisplay.appendChild(weatherIcon);
+
+      weatherDisplay.classList.remove('hidden');
+      document.getElementById('error-message').parentElement.classList.add('hidden');
+      return weatherData;
+    })
+    .catch((error) => {
+      console.error('Fetch error:', error);
+      let errorMessage = document.getElementById('error-message');
+      errorMessage.textContent = 'Please enter a valid location';
+      errorMessage.parentElement.classList.remove('hidden');
+      document.getElementById('weather-display').classList.add('hidden');
+    });
+}
+
+
+$('#getWeatherBtn').click(function () {
+  let locationInput = $('#location-input').val().toLowerCase().trim();
+  let locationInputSplit = locationInput.split(",");
+  let city = locationInputSplit[0];
+  let state = locationInputSplit[1] ? locationInputSplit[1].trim() : null;
+
+  let errorMessage = document.getElementById('error-message');
+
+  if (city === '') {
+    errorMessage.textContent = 'Please enter a valid location';
+    errorMessage.parentElement.classList.remove('hidden');
+  } else {
+    errorMessage.parentElement.classList.add('hidden');
+
+    if (state) {
+      const weatherData = getWeatherByCityAndState(city, state);
+      console.log(weatherData);
+
+      // Generate search term based on weather data
+      const searchTerm = getSearchTerm(glWeatherData.temp, glWeatherData.windSpeed);
+
+      // Search for a YouTube video using the generated search term
+      searchVideo(searchTerm);
+    } else {
+      getWeatherByCityAndState(city);
+
+      // Generate search term based on weather data
+      const searchTerm = getSearchTerm(weatherData.temp, weatherData.windSpeed);
+
+     // Search for a YouTube video using the generated search term
+     searchVideo(searchTerm);
+    }
+  }
+});
+
+
+$('#location-input').on('keydown', function (event) {
+    if (event.keyCode === 13) {
+        $('#getWeatherBtn').click();
+  
+    }
+})*/
+
+
+  //This isn't functioning correctly and we also should've saved the weather data of the last place 
+  /*
+  function unHideContent() {
+    if (currentVideoIndex) {
+      $("#content").removeClass("hidden");
+      console.log(currentVideoIndex);
+      embedVideo(videoHistory[currentVideoIndex]);
+    }
+  }
+
+  unHideContent();*/
 });
